@@ -12,9 +12,14 @@ import CurrentTempUnitContext from '../../contexts/CurrentTempUnitContext';
 function App() {
   const [weatherData, setWeatherData] = useState({
     type: '',
-    temp: { F: 999 },
+    temp: { F: 999, C: 999 },
     city: '',
+    condition: '',
+    isDay: true,
   });
+
+  // const isWeatherDataLoaded = false;
+
   const [activeModal, setActiveModal] = useState('');
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTempUnit, setCurrentTempUnit] = useState('F');
@@ -41,7 +46,6 @@ function App() {
       .then((data) => {
         const filteredData = filterWeatherData(data);
         setWeatherData(filteredData);
-        // debugger;
       })
       .catch(console.error);
   }, []);
