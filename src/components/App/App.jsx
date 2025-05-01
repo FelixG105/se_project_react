@@ -10,6 +10,7 @@ import CurrentTempUnitContext from '../../contexts/CurrentTempUnitContext';
 import AddItemModal from '../AddItemModal/AddItemModal';
 import { defaultClothingItems } from '../../utils/constants.js';
 
+
 function App() {
   const [weatherData, setWeatherData] = useState({
     type: '',
