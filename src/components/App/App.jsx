@@ -7,7 +7,7 @@ import ModalWithForm from '../ModalWithForm/ModalWithForm';
 import ItemModal from '../ItemModal/ItemModal';
 import { getWeather, filterWeatherData } from '../../utils/weatherApi';
 import { coordinates, APIkey } from '../../utils/constants';
-import CurrentTempUnitContext from '../../contexts/CurrentTempUnit';
+import CurrentTempUnitContext from '../../contexts/CurrentTempUnitContext';
 
 function App() {
   const [weatherData, setWeatherData] = useState({

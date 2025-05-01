@@ -28,17 +28,22 @@
 .toggle-switch__text{
     position: absolute;
     color: grey;
-    top: 3px;
+    top: 7px;
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-weight: 500;  /*700 looked to bold*/
+    font-size: 14px;
+    line-height: 1.2
+
 
 }
 
 .toggle-switch__text_F {
-    left: 7px;
+    left: 9px;
 
 }
 
 .toggle-switch__text_C {
-    right: 7px;
+    right: 9px;
 
 }
 
@@ -50,3 +55,6 @@
     color: #fff;
 }
 
+/* 
+transform: translateX(...)
+mix-blend-mode: ... */
