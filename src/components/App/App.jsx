@@ -57,6 +57,11 @@ function App() {
     closeActiveModal();
   };
 
+  const handleDeleteCard = (card) => {
+    setSelectedCard(card);
+    closeActiveModal();
+  };
+
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
@@ -111,6 +116,7 @@ function App() {
           activeModal={activeModal}
           card={selectedCard}
           onClose={closeActiveModal}
+          onDelete={handleDeleteCard}
         />
       </div>
     </CurrentTempUnitContext.Provider>

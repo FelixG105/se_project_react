@@ -39,10 +39,6 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    /* font-family: 'Cabinet Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 1.2; */
 }
 
 .modal__footer-caption, 
@@ -52,4 +48,18 @@
     font-weight: 700;
     font-size: 20px;
     line-height: 1.2;
+}
+
+.modal__delete-item {
+    border: none;
+    background-color: transparent;
+    color: #FF4D00;
+    position: absolute;
+    right: 32px;
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.2;
+    cursor: pointer;
+
 }
