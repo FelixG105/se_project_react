@@ -28,6 +28,7 @@ function App() {
 
   const [activeModal, setActiveModal] = useState('');
   const [selectedCard, setSelectedCard] = useState({});
+  const [cards, setCards] = useState([]);
   const [currentTempUnit, setCurrentTempUnit] = useState('F');
 
   const handleToggleSwitchChange = () => {
@@ -57,8 +58,10 @@ function App() {
     closeActiveModal();
   };
 
-  const handleDeleteCard = (card) => {
-    setSelectedCard(card);
+  const handleDeleteCard = () => {
+    setClothingItems((prevItems) =>
+      prevItems.filter((item) => item._id !== selectedCard._id)
+    );
     closeActiveModal();
   };
 
