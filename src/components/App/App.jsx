@@ -103,7 +103,7 @@ function App() {
             />
             <Route
               path="/profile"
-              element={<Profile onCardClick={handleCardClick} />}
+              element={<Profile onCardClick={handleCardClick} onDelete={handleDeleteCard} clothingItems={clothingItems} />}
             />
           </Routes>
         </div>
