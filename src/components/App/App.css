@@ -3,12 +3,13 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    padding: 32px 40px 0;
 
 }
 
 .page__content {
-    max-width: 1360px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0;
     padding: 0;
     flex: 1;
 

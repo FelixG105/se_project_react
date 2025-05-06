@@ -1,8 +1,10 @@
 .card {
-    width: 323px;
+    max-width: 323px;
     position: relative;
     display: flex;
     justify-content: center;
+    flex: 1;
+    flex-basis: calc(33.33% - 13.33px);
 }
 
 

@@ -5,19 +5,20 @@ import { defaultClothingItems } from '../../utils/constants';
 function ClothesSection({ onCardClick }) {
   return (
     <div className="clothes-section">
-      <div>
+      <div className="clothes-section__options">
         <p className="clothes-section__title">Your Items</p>
-        <button className="clothes-section__add-new"> + Add New</button>
+        <button type="button" className="clothes-section__add-new">
+          {' '}
+          + Add New
+        </button>
       </div>
-      <div>
-        <ul className="clothes-section__items">
-          {defaultClothingItems.map((item) => {
-            return (
-              <ItemCard key={item._id} item={item} onCardClick={onCardClick} />
-            );
-          })}
-        </ul>
-      </div>
+      <ul className="clothes-section__items">
+        {defaultClothingItems.map((item) => {
+          return (
+            <ItemCard key={item._id} item={item} onCardClick={onCardClick} />
+          );
+        })}
+      </ul>
     </div>
   );
 }

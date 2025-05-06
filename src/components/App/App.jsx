@@ -28,7 +28,6 @@ function App() {
 
   const [activeModal, setActiveModal] = useState('');
   const [selectedCard, setSelectedCard] = useState({});
-  const [cards, setCards] = useState([]);
   const [currentTempUnit, setCurrentTempUnit] = useState('F');
 
   const handleToggleSwitchChange = () => {
