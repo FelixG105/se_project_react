@@ -11,7 +11,7 @@ import CurrentTempUnitContext from '../../contexts/CurrentTempUnitContext';
 import AddItemModal from '../AddItemModal/AddItemModal';
 import { defaultClothingItems } from '../../utils/constants.js';
 import Profile from '../Profile/Profile.jsx';
-import { getItems } from '../../utils/api.js';
+import { getItems, postItems, deleteItems } from '../../utils/api.js';
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -48,20 +48,24 @@ function App() {
   };
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    // temporary Id generator
-    const newId = Math.max(...clothingItems.map((item) => item._id)) + 1;
-    setClothingItems([
-      { name, link: imageUrl, weather, _id: newId },
-      ...clothingItems,
-    ]);
-    closeActiveModal();
+    postItems({ name, imageUrl: imageUrl, weather }).then(() => {
+      setClothingItems([
+        { name, imageUrl: imageUrl, weather },
+        ...clothingItems,
+      ]);
+      closeActiveModal();
+    });
   };
 
   const handleDeleteCard = () => {
-    setClothingItems((prevItems) =>
-      prevItems.filter((item) => item._id !== selectedCard._id)
-    );
-    closeActiveModal();
+    deleteItems(selectedCard._id)
+      .then(() => {
+        setClothingItems((prevItems) =>
+          prevItems.filter((item) => item._id !== selectedCard._id)
+        );
+        closeActiveModal();
+      })
+      .catch(console.error);
   };
 
   useEffect(() => {
@@ -76,8 +80,7 @@ function App() {
   useEffect(() => {
     getItems()
       .then((data) => {
-        console.log(data);
-        //set clothing items
+        setClothingItems(data);
       })
       .catch(console.error);
   }, []);
@@ -103,7 +106,13 @@ function App() {
             />
             <Route
               path="/profile"
-              element={<Profile onCardClick={handleCardClick} onDelete={handleDeleteCard} clothingItems={clothingItems} />}
+              element={
+                <Profile
+                  onCardClick={handleCardClick}
+                  onDelete={handleDeleteCard}
+                  clothingItems={clothingItems}
+                />
+              }
             />
           </Routes>
         </div>
