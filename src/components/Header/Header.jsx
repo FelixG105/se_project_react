@@ -38,20 +38,6 @@ function Header({ handleAddClick, weatherData }) {
               className="header__avatar"
             />
           </div>
-          {/* <div className="header__user-container">
-            <div className="header__username">{username}</div>
-            {avatar ? (
-              <img
-                src={avatar || avatarDefault}
-                alt="user avatar"
-                className="header__avatar"
-              />
-            ) : (
-              <span className="header__avatar header__avatar_none">
-                {username?.toUpperCase().charAt(0) || ''}
-              </span>
-            )}
-          </div> */}
         </Link>
       </div>
     </header>

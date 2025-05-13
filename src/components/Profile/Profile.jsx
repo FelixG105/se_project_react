@@ -1,19 +1,19 @@
-import ClothesSection from './ClothesSection';
+import ClothesSection from '../ClothesSection/ClothesSection';
 import './Profile.css';
-import SideBar from './SideBar';
+import SideBar from '../SideBar/SideBar';
 
-function Profile({ onCardClick, onDelete, clothingItems }) {
+function Profile({ onCardClick, onDelete, clothingItems, handleAddClick }) {
   return (
     <div className="profile">
       <section className="profile__sidebar">
         <SideBar />
-        <img src="" alt="" />
       </section>
       <section className="profile__clothes-section">
         <ClothesSection
           onCardClick={onCardClick}
           onDelete={onDelete}
           clothingItems={clothingItems}
+          handleAddClick={handleAddClick}
         />
       </section>
     </div>

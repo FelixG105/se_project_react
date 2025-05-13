@@ -1,13 +1,8 @@
-/* .clothes-section {
-    width: 100%;
-    margin-left: auto;
-} */
-
 .clothes-section__options{
     display: flex;
     gap: 20px;
     font-family: 'Cabinet Grotesk', sans-serif;
-    font-size: 14px;
+    font-size: 20px;
     margin-top: 16px;
   
 }
@@ -25,6 +20,7 @@
     background-color: transparent;
     color: rgba(0, 0, 0, .6);
     font-weight: 600;
+    cursor: pointer;
 }
 
 .clothes-section__items {

@@ -24,8 +24,6 @@ function App() {
 
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
 
-  // const isWeatherDataLoaded = false;
-
   const [activeModal, setActiveModal] = useState('');
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTempUnit, setCurrentTempUnit] = useState('F');
@@ -48,13 +46,13 @@ function App() {
   };
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    postItems({ name, imageUrl: imageUrl, weather }).then(() => {
-      setClothingItems([
-        { name, imageUrl: imageUrl, weather },
-        ...clothingItems,
-      ]);
-      closeActiveModal();
-    });
+    postItems({ name, imageUrl: imageUrl, weather })
+      .then((newItem) => {
+        // Use the returned item from the server, which includes _id
+        setClothingItems([newItem, ...clothingItems]);
+        closeActiveModal();
+      })
+      .catch(console.error);
   };
 
   const handleDeleteCard = () => {
@@ -96,7 +94,6 @@ function App() {
             <Route
               path="/"
               element={
-                // pass clothing item as prop
                 <Main
                   weatherData={weatherData}
                   handleCardClick={handleCardClick}
@@ -111,6 +108,7 @@ function App() {
                   onCardClick={handleCardClick}
                   onDelete={handleDeleteCard}
                   clothingItems={clothingItems}
+                  handleAddClick={handleAddClick}
                 />
               }
             />

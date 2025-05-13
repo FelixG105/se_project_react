@@ -1,12 +1,21 @@
 import './ClothesSection.css';
 import ItemCard from '../ItemCard/ItemCard';
 
-function ClothesSection({ onCardClick, onDelete, clothingItems }) {
+function ClothesSection({
+  onCardClick,
+  onDelete,
+  clothingItems,
+  handleAddClick,
+}) {
   return (
     <div className="clothes-section">
       <div className="clothes-section__options">
         <p className="clothes-section__title">Your Items</p>
-        <button type="button" className="clothes-section__add-new">
+        <button
+          onClick={handleAddClick}
+          type="button"
+          className="clothes-section__add-new"
+        >
           {' '}
           + Add New
         </button>

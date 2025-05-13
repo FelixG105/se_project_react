@@ -5,6 +5,7 @@
     justify-content: center;
     flex: 1;
     flex-basis: calc(33.33% - 13.33px);
+    cursor: pointer;
 }
 
 
@@ -12,8 +13,9 @@
     position: absolute;
     top: 15px;
     margin: 0;
-    height: 24px;
-    width: 72px;
+    max-height: 25px;
+    max-width: 75px;
+    padding: 0 10px 0;
     border-radius: 4px;
     font-family: 'Cabinet Grotesk', sans-serif;
     font-weight: 700;

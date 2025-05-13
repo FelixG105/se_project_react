@@ -21,8 +21,7 @@ function ToggleSwitch() {
         F
       </span>
       <span
-        style={{ color: `${currentTempUnit === 'C' ? 'white' : ''}` }} // inline style
-        className="toggle-switch__text toggle-switch__text_C"
+        className={`toggle-switch__text toggle-switch__text_C ${currentTempUnit === 'C' ? 'toggle-switch__text_color_white' : ''}`}
       >
         C
       </span>
