@@ -5,6 +5,7 @@
     flex: 1;
     flex-basis: calc(33.33% - 13.33px);
     cursor: pointer;
+    max-width: 325px;
 }
 
 
