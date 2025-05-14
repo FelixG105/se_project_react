@@ -1,5 +1,4 @@
 .card {
-    max-width: 323px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -13,8 +12,8 @@
     position: absolute;
     top: 15px;
     margin: 0;
-    max-height: 25px;
-    max-width: 75px;
+    max-height: 160px;
+    max-width: 80px;
     padding: 0 10px 0;
     border-radius: 4px;
     font-family: 'Cabinet Grotesk', sans-serif;
