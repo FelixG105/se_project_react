@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3000';
+const baseUrl = 'http://localhost:3001';
 
 function getItems() {
   return fetch(`${baseUrl}/items`).then((res) => {
@@ -29,7 +29,7 @@ function deleteItems(_id) {
 }
 
 function signUp({ name, imageUrl, email, password }) {
-  return fetch(`${baseUrl}/register`, {
+  return fetch(`${baseUrl}/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -57,4 +57,12 @@ function signIn({ email, password }) {
   });
 }
 
-export { getItems, postItems, deleteItems, signUp, signIn };
+function signOut() {
+  return fetch(`${baseUrl}/signout`, {
+    method: 'POST',
+  }).then((res) => {
+    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+  });
+}
+
+export { getItems, postItems, deleteItems, signUp, signIn, signOut };

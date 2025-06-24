@@ -3,7 +3,7 @@ import { useState, createContext } from 'react';
 const CurrentUserContext = createContext();
 
 function CurrentUserProvider({ children }) {
-  const [currentUserState, setCurrentUserState] = useState('null');
+  const [currentUserState, setCurrentUserState] = useState(null);
 
   return (
     <CurrentUserContext.Provider

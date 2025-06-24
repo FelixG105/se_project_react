@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -19,10 +19,12 @@ import {
   deleteItems,
   signUp,
   signIn,
+  signOut,
 } from '../../utils/api.js';
 import LogInModal from '../LoginModal/LoginModal.jsx';
 
 function App() {
+  console.log('loading');
   const [weatherData, setWeatherData] = useState({
     type: '',
     temp: { F: 999, C: 999 },
@@ -38,6 +40,7 @@ function App() {
   const [currentTempUnit, setCurrentTempUnit] = useState('F');
   const [currentUser, setCurrentUser] = useState('');
   const [userError, setUserError] = useState('');
+  const navigate = useNavigate();
 
   const handleToggleSwitchChange = () => {
     setCurrentTempUnit(currentTempUnit === 'F' ? 'C' : 'F');
@@ -66,16 +69,6 @@ function App() {
       .catch(console.error);
   };
 
-  // const handleSignIn = ({ email, password }) => {
-  //   signIn({ email, password }).then((user) => {
-  //     setCurrentUser(user);
-  //   });
-  // };
-
-  // const handleSignOut = ({ email, password }) => {
-  //   signOut({ email, password });
-  // };
-
   const handleRegisterModalSubmit = ({ name, imageUrl, email, password }) => {
     signUp({ name, imageUrl, email, password })
       .then(() => {
@@ -92,11 +85,20 @@ function App() {
       });
   };
 
-  const handleLogInModalSubmit = ({ email, password }) => {
+  const handleLogIn = ({ email, password }) => {
     signIn({ email, password })
       .then((user) => {
         setCurrentUser(user);
         closeActiveModal();
+      })
+      .catch(console.error);
+  };
+
+  const handleSignOut = () => {
+    signOut()
+      .then(() => {
+        navigate('/');
+        setCurrentUser('');
       })
       .catch(console.error);
   };
@@ -136,7 +138,12 @@ function App() {
       >
         <div className="page">
           <div className="page__content">
-            <Header handleAddClick={handleAddClick} weatherData={weatherData} />
+            <Header
+              handleAddClick={handleAddClick}
+              weatherData={weatherData}
+              handleSignOut={handleSignOut}
+              handleLogIn={handleLogIn}
+            />
             <Routes>
               <Route
                 path="/"
@@ -184,7 +191,7 @@ function App() {
           <LogInModal
             isOpen={activeModal === 'login'}
             onClose={closeActiveModal}
-            onLogInModalSubmit={handleLogInModalSubmit}
+            onLogInModalSubmit={handleLogIn}
             userError={userError}
           />
         </div>

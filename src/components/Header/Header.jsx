@@ -6,7 +6,12 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-function Header({ handleAddClick, weatherData }) {
+function Header({
+  handleAddClick,
+  weatherData,
+  handleSignOut,
+  setActiveModal,
+}) {
   const currentDate = new Date().toLocaleString('default', {
     month: 'long',
     day: 'numeric',
@@ -27,23 +32,56 @@ function Header({ handleAddClick, weatherData }) {
       </div>
       <div className="header__right">
         <ToggleSwitch />
-        <button
-          onClick={handleAddClick}
-          type="button"
-          className="header__add-clothes-btn"
-        >
-          + Add Clothes
-        </button>
+        {currentUser ? (
+          <button
+            onClick={handleAddClick}
+            type="button"
+            className="header__add-clothes-btn"
+          >
+            + Add Clothes
+          </button>
+        ) : (
+          <button
+            onClick={() => setActiveModal('register')}
+            type="button"
+            className="header__signup"
+          >
+            Sign Up
+          </button>
+        )}
         <Link to="/profile" className="header__link">
           <div className="header__user-container">
             <p className="header__username">
-              {currentUser ? currentUser.name : 'Log In'}
+              {currentUser ? (
+                currentUser.name
+              ) : (
+                <button
+                  type="button"
+                  className="header__login"
+                  onClick={() => setActiveModal('login')}
+                >
+                  Log In
+                </button>
+              )}
             </p>
             <img
               src={currentUser ? currentUser.avatar : avatar}
               alt="User avatar"
               className="header__avatar"
             />
+          </div>
+        </Link>
+        <Link to="/" className="header__link">
+          <div className="header__user-container">
+            {currentUser ? (
+              <button
+                type="button"
+                className="header__signout"
+                onClick={() => handleSignOut()}
+              >
+                Sign Out
+              </button>
+            ) : null}
           </div>
         </Link>
       </div>
