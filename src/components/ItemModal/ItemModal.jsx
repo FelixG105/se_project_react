@@ -1,10 +1,13 @@
 import './ItemModal.css';
 import close from '../../assets/close-white.png';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 function ItemModal({ activeModal, onClose, card, onDelete }) {
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+
+  const currentUser = useContext(CurrentUserContext);
 
   return (
     <>
@@ -21,13 +24,15 @@ function ItemModal({ activeModal, onClose, card, onDelete }) {
           <div className="modal__footer">
             <h2 className="modal__footer-caption">{card.name}</h2>
             <p className="modal__footer-weather">Weather: {card.weather}</p>
-            <button
-              type="button"
-              className="modal__delete-item"
-              onClick={() => setConfirmDeleteOpen(true)}
-            >
-              Delete Item
-            </button>
+            {currentUser.id === card.owner.id ? (
+              <button
+                type="button"
+                className="modal__delete-item"
+                onClick={() => setConfirmDeleteOpen(true)}
+              >
+                Delete Item
+              </button>
+            ) : null}
           </div>
         </div>
       </div>
