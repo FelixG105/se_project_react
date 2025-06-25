@@ -55,6 +55,36 @@
   cursor: pointer;
 }
 
+.header__login {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.header__login:hover {
+  cursor: pointer;
+}
+
+.header__signup {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.header__signup:hover {
+  cursor: pointer;
+}
+
 .header__user-container {
   display: flex;
   align-items: center;

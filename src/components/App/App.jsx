@@ -13,15 +13,10 @@ import AddItemModal from '../AddItemModal/AddItemModal.jsx';
 import RegisterModal from '../RegisterModal/RegisterModal.jsx';
 import { defaultClothingItems } from '../../utils/constants.js';
 import Profile from '../Profile/Profile.jsx';
-import {
-  getItems,
-  postItems,
-  deleteItems,
-  signUp,
-  signIn,
-  signOut,
-} from '../../utils/api.js';
+import { getItems, postItems, deleteItems } from '../../utils/api.js';
 import LogInModal from '../LoginModal/LoginModal.jsx';
+import { signIn, signUp, signOut, validateToken } from '../../utils/auth.js';
+import ProtectedRoute from '../ProtectedRoute.jsx';
 
 function App() {
   console.log('loading');
@@ -61,8 +56,8 @@ function App() {
     setActiveModal('');
   };
 
-  const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    postItems({ name, imageUrl: imageUrl, weather })
+  const handleAddItemModalSubmit = ({ name, imageUrl, weather, token }) => {
+    postItems({ name, imageUrl: imageUrl, weather, token })
       .then((newItem) => {
         // Use the returned item from the server, which includes _id
         setClothingItems([newItem, ...clothingItems]);
@@ -90,6 +85,9 @@ function App() {
   const handleLogIn = ({ email, password }) => {
     signIn({ email, password })
       .then((user) => {
+        if (user.token) {
+          localStorage.setItem('jwt', user.token);
+        }
         setCurrentUser(user);
         closeActiveModal();
         navigate('/profile');
@@ -100,14 +98,16 @@ function App() {
   const handleSignOut = () => {
     signOut()
       .then(() => {
+        localStorage.removeItem('jwt');
         navigate('/');
-        setCurrentUser('');
+        setCurrentUser(false);
       })
       .catch(console.error);
   };
 
   const handleDeleteCard = () => {
-    deleteItems(selectedCard._id)
+    const token = localStorage.getItem('jwt');
+    deleteItems(selectedCard._id, token)
       .then(() => {
         setClothingItems((prevItems) =>
           prevItems.filter((item) => item._id !== selectedCard._id)
@@ -134,6 +134,23 @@ function App() {
       .catch(console.error);
   }, []);
 
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      validateToken(token)
+        .then((user) => {
+          setCurrentUser(user);
+        })
+        .catch((err) => {
+          console.error(err.message);
+          localStorage.removeItem('jwt');
+          setCurrentUser(false);
+        });
+    } else {
+      setCurrentUser(false);
+    }
+  }, []);
+
   return (
     <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
       <CurrentTempUnitContext.Provider
@@ -148,6 +165,7 @@ function App() {
               handleLogIn={handleLogIn}
               setActiveModal={setActiveModal}
             />
+
             <Routes>
               <Route
                 path="/"
@@ -162,13 +180,15 @@ function App() {
               <Route
                 path="/profile"
                 element={
-                  <Profile
-                    onCardClick={handleCardClick}
-                    onDelete={handleDeleteCard}
-                    clothingItems={clothingItems}
-                    handleAddClick={handleAddClick}
-                    currentUser={currentUser}
-                  />
+                  <ProtectedRoute>
+                    <Profile
+                      onCardClick={handleCardClick}
+                      onDelete={handleDeleteCard}
+                      clothingItems={clothingItems}
+                      handleAddClick={handleAddClick}
+                      currentUser={currentUser}
+                    />
+                  </ProtectedRoute>
                 }
               />
             </Routes>

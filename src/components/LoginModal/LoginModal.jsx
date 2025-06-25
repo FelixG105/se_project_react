@@ -19,9 +19,13 @@ function LogInModal({ onClose, isOpen, onLogInModalSubmit, userError }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogInModalSubmit({ email, password });
-    navigate('/profile');
-    onClose();
+    onLogInModalSubmit({ email, password })
+      .then((res) => {
+        navigate('/profile');
+        onClose();
+        return res.ok;
+      })
+      .catch(console.error);
   };
 
   useEffect(() => {
