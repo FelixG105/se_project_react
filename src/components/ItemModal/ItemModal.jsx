@@ -7,7 +7,9 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 function ItemModal({ activeModal, onClose, card, onDelete }) {
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
+
+  console.log('ItemModal - currentUser:', currentUser, 'card:', card);
 
   return (
     <>
@@ -24,7 +26,7 @@ function ItemModal({ activeModal, onClose, card, onDelete }) {
           <div className="modal__footer">
             <h2 className="modal__footer-caption">{card.name}</h2>
             <p className="modal__footer-weather">Weather: {card.weather}</p>
-            {currentUser.id === card.owner.id ? (
+            {currentUser?._id === card.owner ? (
               <button
                 type="button"
                 className="modal__delete-item"

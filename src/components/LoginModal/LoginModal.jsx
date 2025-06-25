@@ -46,6 +46,7 @@ function LogInModal({ onClose, isOpen, onLogInModalSubmit, userError }) {
           maxLength="30"
           onChange={handleEmailChange}
           value={email}
+          autoComplete="email"
         />
       </label>
       <label htmlFor="password" className="modal__label">
@@ -60,6 +61,7 @@ function LogInModal({ onClose, isOpen, onLogInModalSubmit, userError }) {
           maxLength="30"
           onChange={handlePasswordChange}
           value={password}
+          autoComplete="current-password"
         />
       </label>
     </ModalWithForm>

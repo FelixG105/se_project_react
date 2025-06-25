@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
-import Header from '../Header/Header';
-import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
-import ItemModal from '../ItemModal/ItemModal';
-import { getWeather, filterWeatherData } from '../../utils/weatherApi';
-import { coordinates, APIkey } from '../../utils/constants';
-import CurrentTempUnitContext from '../../contexts/CurrentTempUnitContext';
+import Header from '../Header/Header.jsx';
+import Main from '../Main/Main.jsx';
+import Footer from '../Footer/Footer.jsx';
+import ItemModal from '../ItemModal/ItemModal.jsx';
+import { getWeather, filterWeatherData } from '../../utils/weatherApi.js';
+import { coordinates, APIkey } from '../../utils/constants.js';
+import CurrentTempUnitContext from '../../contexts/CurrentTempUnitContext.jsx';
 import CurrentUserContext from '../../contexts/CurrentUserContext.jsx';
-import AddItemModal from '../AddItemModal/AddItemModal';
+import AddItemModal from '../AddItemModal/AddItemModal.jsx';
 import RegisterModal from '../RegisterModal/RegisterModal.jsx';
 import { defaultClothingItems } from '../../utils/constants.js';
 import Profile from '../Profile/Profile.jsx';
@@ -26,6 +26,7 @@ import LogInModal from '../LoginModal/LoginModal.jsx';
 function App() {
   console.log('loading');
   console.log('TESTING');
+  console.log('TESTING 2');
   const [weatherData, setWeatherData] = useState({
     type: '',
     temp: { F: 999, C: 999 },

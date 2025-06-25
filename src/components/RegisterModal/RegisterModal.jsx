@@ -52,13 +52,14 @@ function RegisterModal({ onClose, isOpen, onRegisterModalSubmit, userError }) {
         <input
           type="email"
           className="modal__input"
-          id="email-address"
+          id="register-email"
           placeholder="Email"
           required
           minLength="1"
           maxLength="30"
           onChange={handleEmailChange}
           value={email}
+          autoComplete="email"
         />
       </label>
       <label htmlFor="password" className="modal__label">
@@ -66,13 +67,14 @@ function RegisterModal({ onClose, isOpen, onRegisterModalSubmit, userError }) {
         <input
           type="password"
           className="modal__input"
-          id="password"
+          id="register-password"
           placeholder="Password"
           required
           minLength="1"
           maxLength="30"
           onChange={handlePasswordChange}
           value={password}
+          autoComplete="new-password"
         />
       </label>
       <label htmlFor="name" className="modal__label">
@@ -80,7 +82,7 @@ function RegisterModal({ onClose, isOpen, onRegisterModalSubmit, userError }) {
         <input
           type="text"
           className="modal__input"
-          id="clothing-name"
+          id="user-name"
           placeholder="Name"
           required
           minLength="1"
@@ -89,12 +91,12 @@ function RegisterModal({ onClose, isOpen, onRegisterModalSubmit, userError }) {
           value={name}
         />
       </label>
-      <label htmlFor="imageUrl" className="modal__label">
+      <label htmlFor="avatarUrl" className="modal__label">
         Image{' '}
         <input
           type="text"
           className="modal__input"
-          id="imageUrl"
+          id="avatarUrl"
           placeholder="Image URL"
           required
           minLength="1"
