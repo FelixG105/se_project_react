@@ -40,7 +40,7 @@ function App() {
   const [activeModal, setActiveModal] = useState('');
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTempUnit, setCurrentTempUnit] = useState('F');
-  const [currentUser, setCurrentUser] = useState('');
+  const [currentUser, setCurrentUser] = useState(false);
   const [userError, setUserError] = useState('');
   const navigate = useNavigate();
 
@@ -92,6 +92,7 @@ function App() {
       .then((user) => {
         setCurrentUser(user);
         closeActiveModal();
+        navigate('/profile');
       })
       .catch(console.error);
   };
@@ -145,6 +146,7 @@ function App() {
               weatherData={weatherData}
               handleSignOut={handleSignOut}
               handleLogIn={handleLogIn}
+              setActiveModal={setActiveModal}
             />
             <Routes>
               <Route

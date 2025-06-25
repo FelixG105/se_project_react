@@ -1,10 +1,13 @@
 import './LoginModal.css';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function LogInModal({ onClose, isOpen, onLogInModalSubmit, userError }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -17,6 +20,8 @@ function LogInModal({ onClose, isOpen, onLogInModalSubmit, userError }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onLogInModalSubmit({ email, password });
+    navigate('/profile');
+    onClose();
   };
 
   useEffect(() => {

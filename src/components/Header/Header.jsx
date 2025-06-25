@@ -17,7 +17,7 @@ function Header({
     day: 'numeric',
   });
 
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
 
   return (
     <header className="header">
@@ -41,36 +41,39 @@ function Header({
             + Add Clothes
           </button>
         ) : (
-          <button
-            onClick={() => setActiveModal('register')}
-            type="button"
-            className="header__signup"
-          >
-            Sign Up
-          </button>
+          <Link to="/" className="register__modal">
+            <button
+              onClick={() => setActiveModal('register')}
+              type="button"
+              className="header__signup"
+            >
+              Sign Up
+            </button>
+          </Link>
         )}
-        <Link to="/profile" className="header__link">
+        {currentUser ? (
+          <Link to="/profile" className="header__link">
+            <div className="header__user-container">
+              <p className="header__username">{currentUser.name}</p>
+              <img
+                src={currentUser.avatar}
+                alt="User avatar"
+                className="header__avatar"
+              />
+            </div>
+          </Link>
+        ) : (
           <div className="header__user-container">
-            <p className="header__username">
-              {currentUser ? (
-                currentUser.name
-              ) : (
-                <button
-                  type="button"
-                  className="header__login"
-                  onClick={() => setActiveModal('login')}
-                >
-                  Log In
-                </button>
-              )}
-            </p>
-            <img
-              src={currentUser ? currentUser.avatar : avatar}
-              alt="User avatar"
-              className="header__avatar"
-            />
+            <button
+              type="button"
+              className="header__login"
+              onClick={() => setActiveModal('login')}
+            >
+              Log In
+            </button>
+            <img src={avatar} alt="Default avatar" className="header__avatar" />
           </div>
-        </Link>
+        )}
         <Link to="/" className="header__link">
           <div className="header__user-container">
             {currentUser ? (
