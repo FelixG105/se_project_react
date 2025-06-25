@@ -25,6 +25,7 @@ import LogInModal from '../LoginModal/LoginModal.jsx';
 
 function App() {
   console.log('loading');
+  console.log('TESTING');
   const [weatherData, setWeatherData] = useState({
     type: '',
     temp: { F: 999, C: 999 },
