@@ -3,7 +3,7 @@ import ModalWithForm from '../ModalWithForm/ModalWithForm';
 import { useEffect, useState } from 'react';
 
 function RegisterModal({ onClose, isOpen, onRegisterModalSubmit, userError }) {
-  // switch to onRegisterModalSubmit
+  
   const [name, setName] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [email, setEmail] = useState('');

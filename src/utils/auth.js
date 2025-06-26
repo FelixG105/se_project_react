@@ -13,7 +13,7 @@ function signUp({ name, imageUrl, email, password }) {
     },
     body: JSON.stringify({
       name: name,
-      imageUrl: imageUrl,
+      avatar: imageUrl,
       email: email,
       password: password,
     }),
@@ -35,11 +35,8 @@ function signIn({ email, password }) {
 }
 
 function signOut() {
-  return fetch(`${baseUrl}/signout`, {
-    method: 'POST',
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  localStorage.removeItem('jwt');
+  return Promise.resolve();
 }
 
 function validateToken(token) {
