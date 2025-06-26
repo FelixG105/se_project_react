@@ -56,11 +56,14 @@ function App() {
     setActiveModal('');
   };
 
-  const handleAddItemModalSubmit = ({ name, imageUrl, weather, token }) => {
-    postItems({ name, imageUrl: imageUrl, weather, token })
+  console.log(clothingItems);
+
+  const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
+    const token = localStorage.getItem('jwt');
+    postItems({ name, imageUrl, weather, token })
       .then((newItem) => {
         // Use the returned item from the server, which includes _id
-        setClothingItems([newItem, ...clothingItems]);
+        setClothingItems([newItem.data, ...clothingItems]);
         closeActiveModal();
       })
       .catch(console.error);
@@ -83,7 +86,7 @@ function App() {
   };
 
   const handleLogIn = ({ email, password }) => {
-    signIn({ email, password })
+    return signIn({ email, password })
       .then((user) => {
         if (user.token) {
           localStorage.setItem('jwt', user.token);
@@ -142,7 +145,7 @@ function App() {
           setCurrentUser(user);
         })
         .catch((err) => {
-          console.error(err.message);
+          console.error(err);
           localStorage.removeItem('jwt');
           setCurrentUser(false);
         });

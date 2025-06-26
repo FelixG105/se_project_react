@@ -38,6 +38,7 @@
 
 .header__avatar {
   margin: 0;
+  width: 50px; /*correct later*/
 }
 
 .header__add-clothes-btn {
