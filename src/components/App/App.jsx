@@ -19,9 +19,6 @@ import { signIn, signUp, signOut, validateToken } from '../../utils/auth.js';
 import ProtectedRoute from '../ProtectedRoute.jsx';
 
 function App() {
-  console.log('loading');
-  console.log('TESTING');
-  console.log('TESTING 2');
   const [weatherData, setWeatherData] = useState({
     type: '',
     temp: { F: 999, C: 999 },
@@ -55,8 +52,6 @@ function App() {
   const closeActiveModal = () => {
     setActiveModal('');
   };
-
-  console.log(clothingItems);
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
     const token = localStorage.getItem('jwt');
@@ -129,7 +124,7 @@ function App() {
     !isLiked
       ? // if so, send a request to add the user's id to the card's likes array
         api
-          .addCardLike(id, token)
+          .addCardLike({ _id: id, token })
           .then((updatedCard) => {
             setClothingItems((cards) =>
               cards.map((item) => (item._id === id ? updatedCard : item))
@@ -138,7 +133,7 @@ function App() {
           .catch((err) => console.log(err))
       : // if not, send a request to remove the user's id from the card's likes array
         api
-          .removeCardLike(id, token)
+          .removeCardLike({ _id: id, token })
           .then((updatedCard) => {
             setClothingItems((cards) =>
               cards.map((item) => (item._id === id ? updatedCard : item))
