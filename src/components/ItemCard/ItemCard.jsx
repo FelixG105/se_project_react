@@ -16,6 +16,8 @@ function ItemCard({ item, onCardClick }) {
       />
     </li>
   );
+
+  function handleLike({ item }) {}
 }
 
 export default ItemCard;

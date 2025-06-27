@@ -9,7 +9,6 @@ function ItemModal({ activeModal, onClose, card, onDelete }) {
 
   const { currentUser } = useContext(CurrentUserContext);
 
-  console.log('ItemModal - currentUser:', currentUser, 'card:', card);
 
   return (
     <>

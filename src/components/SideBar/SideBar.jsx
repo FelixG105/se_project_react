@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 function SideBar() {
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
 
   return (
     <div className="sidebar">

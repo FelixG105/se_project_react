@@ -34,6 +34,32 @@ function deleteItems({ _id, token }) {
   });
 }
 
+function addCardLike({ _id, token }) {
+  return fetch(`${baseUrl}/items/${_id}/likes`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) =>
+    res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
+  );
+}
 
+function removeCardLike({ _id, token }) {
+  return fetch(`${baseUrl}/items/${_id}/likes`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) =>
+    res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
+  );
+}
 
-export { getItems, postItems, deleteItems };
+export const api = {
+  getItems,
+  postItems,
+  deleteItems,
+  addCardLike,
+  removeCardLike,
+};

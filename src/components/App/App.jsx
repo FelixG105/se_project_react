@@ -13,7 +13,7 @@ import AddItemModal from '../AddItemModal/AddItemModal.jsx';
 import RegisterModal from '../RegisterModal/RegisterModal.jsx';
 import { defaultClothingItems } from '../../utils/constants.js';
 import Profile from '../Profile/Profile.jsx';
-import { getItems, postItems, deleteItems } from '../../utils/api.js';
+import { api } from '../../utils/api.js';
 import LogInModal from '../LoginModal/LoginModal.jsx';
 import { signIn, signUp, signOut, validateToken } from '../../utils/auth.js';
 import ProtectedRoute from '../ProtectedRoute.jsx';
@@ -60,7 +60,8 @@ function App() {
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
     const token = localStorage.getItem('jwt');
-    postItems({ name, imageUrl, weather, token })
+    api
+      .postItems({ name, imageUrl, weather, token })
       .then((newItem) => {
         // Use the returned item from the server, which includes _id
         setClothingItems([newItem.data, ...clothingItems]);
@@ -110,7 +111,9 @@ function App() {
 
   const handleDeleteCard = () => {
     const token = localStorage.getItem('jwt');
-    deleteItems(selectedCard._id, token)
+    console.log('Token from local stoarge:', token);
+    return api
+      .deleteItems({ _id: selectedCard._id, token })
       .then(() => {
         setClothingItems((prevItems) =>
           prevItems.filter((item) => item._id !== selectedCard._id)
@@ -118,6 +121,30 @@ function App() {
         closeActiveModal();
       })
       .catch(console.error);
+  };
+
+  const handleCardLike = ({ id, isLiked }) => {
+    const token = localStorage.getItem('jwt');
+    // Check if this card is not currently liked
+    !isLiked
+      ? // if so, send a request to add the user's id to the card's likes array
+        api
+          .addCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err))
+      : // if not, send a request to remove the user's id from the card's likes array
+        api
+          .removeCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -130,7 +157,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getItems()
+    api
+      .getItems()
       .then((data) => {
         setClothingItems(data);
       })
@@ -177,6 +205,7 @@ function App() {
                     weatherData={weatherData}
                     handleCardClick={handleCardClick}
                     clothingItems={clothingItems}
+                    onCardLike={handleCardLike}
                   />
                 }
               />
