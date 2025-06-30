@@ -214,6 +214,7 @@ function App() {
                       clothingItems={clothingItems}
                       handleAddClick={handleAddClick}
                       currentUser={currentUser}
+                      onCardLike={handleCardLike}
                     />
                   </ProtectedRoute>
                 }

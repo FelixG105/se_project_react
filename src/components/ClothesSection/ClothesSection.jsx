@@ -8,6 +8,7 @@ function ClothesSection({
   onDelete,
   clothingItems,
   handleAddClick,
+  onCardLike,
 }) {
   const { currentUser } = useContext(CurrentUserContext);
 
@@ -35,6 +36,7 @@ function ClothesSection({
                 item={item}
                 onCardClick={onCardClick}
                 onDelete={onDelete}
+                onCardLike={onCardLike}
               />
             );
           })}
