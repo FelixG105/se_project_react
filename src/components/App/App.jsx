@@ -15,7 +15,14 @@ import { defaultClothingItems } from '../../utils/constants.js';
 import Profile from '../Profile/Profile.jsx';
 import { api } from '../../utils/api.js';
 import LogInModal from '../LoginModal/LoginModal.jsx';
-import { signIn, signUp, signOut, validateToken } from '../../utils/auth.js';
+import {
+  signIn,
+  signUp,
+  signOut,
+  validateToken,
+  updateUser,
+} from '../../utils/auth.js';
+import EditProfileModal from '../EditProfileModal/EditProfileModal.jsx';
 import ProtectedRoute from '../ProtectedRoute.jsx';
 
 function App() {
@@ -94,6 +101,20 @@ function App() {
       .catch(console.error);
   };
 
+  const handleUpdateUser = ({ name, avatar }) => {
+    const token = localStorage.getItem('jwt');
+    console.log('Updating user with:', { name, avatar, token });
+    updateUser({ name, avatar, token })
+      .then((updatedUser) => {
+        console.log('Updated user received:', updatedUser);
+        setCurrentUser(updatedUser);
+        closeActiveModal();
+      })
+      .catch((err) => {
+        console.error('Failed to update user:', err);
+      });
+  };
+
   const handleSignOut = () => {
     signOut()
       .then(() => {
@@ -122,8 +143,7 @@ function App() {
     const token = localStorage.getItem('jwt');
     // Check if this card is not currently liked
     !isLiked
-      ? // if so, send a request to add the user's id to the card's likes array
-        api
+      ? api
           .addCardLike({ _id: id, token })
           .then((updatedCard) => {
             setClothingItems((cards) =>
@@ -131,8 +151,7 @@ function App() {
             );
           })
           .catch((err) => console.log(err))
-      : // if not, send a request to remove the user's id from the card's likes array
-        api
+      : api
           .removeCardLike({ _id: id, token })
           .then((updatedCard) => {
             setClothingItems((cards) =>
@@ -215,6 +234,8 @@ function App() {
                       handleAddClick={handleAddClick}
                       currentUser={currentUser}
                       onCardLike={handleCardLike}
+                      openEditModal={() => setActiveModal('edit-profile')}
+                      handleSignOut={handleSignOut}
                     />
                   </ProtectedRoute>
                 }
@@ -245,6 +266,12 @@ function App() {
             onClose={closeActiveModal}
             onLogInModalSubmit={handleLogIn}
             userError={userError}
+          />
+          <EditProfileModal
+            isOpen={activeModal === 'edit-profile'}
+            onClose={closeActiveModal}
+            currentUser={currentUser}
+            onUpdateUser={handleUpdateUser}
           />
         </div>
       </CurrentTempUnitContext.Provider>

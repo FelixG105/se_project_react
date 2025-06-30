@@ -54,4 +54,20 @@ function validateToken(token) {
   });
 }
 
-export { signIn, signOut, signUp, checkToken, validateToken };
+function updateUser({ token, name, avatar }) {
+  return fetch('http://localhost:3001/users/me', {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name, avatar }),
+  }).then((res) => {
+    if (!res.ok) {
+      throw new Error('Invalid token');
+    }
+    return res.json();
+  });
+}
+
+export { signIn, signOut, signUp, checkToken, validateToken, updateUser };
