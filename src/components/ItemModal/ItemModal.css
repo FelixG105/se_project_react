@@ -1,65 +1,60 @@
 .modal__content_type_image {
-    width: 498px;
-    height: 610px;
-    border-radius: 10px;
-    padding: 0;
-    max-width: 498px;
-    background-color: white;
-    position: relative;
-    box-sizing: border-box;
-    width: 100%;
-    
+  width: 498px;
+  height: 610px;
+  border-radius: 10px;
+  padding: 0;
+  max-width: 498px;
+  background-color: white;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .modal__close_type_preview {
-    border: none;
-    background: transparent;
-    background-repeat: no-repeat;
-    height: 20px;
-    width: 20px;
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    padding: 0;
-    
+  border: none;
+  background: transparent;
+  background-repeat: no-repeat;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  padding: 0;
 }
 
-
 .modal__image {
-    width: 498px;
-    height: 498px;
-    object-fit: cover;
-    border-radius: 10px;
-
+  width: 498px;
+  height: 498px;
+  object-fit: contain;
+  border-radius: 10px;
 }
 
 .modal__footer {
-    padding: 20px 32px 32px 32px;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  padding: 20px 32px 32px 32px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.modal__footer-caption, 
+.modal__footer-caption,
 .modal__footer-weather {
-    margin: 0;
-    font-family: 'Cabinet Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 1.2;
+  margin: 0;
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
 }
 
 .modal__delete-item {
-    border: none;
-    background-color: transparent;
-    color: #FF4D00;
-    position: absolute;
-    right: 32px;
-    font-family: 'Cabinet Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 1.2;
-    cursor: pointer;
-
+  border: none;
+  background-color: transparent;
+  color: #ff4d00;
+  position: absolute;
+  right: 32px;
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  cursor: pointer;
 }

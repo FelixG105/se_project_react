@@ -8,6 +8,8 @@ function ModalWithForm({
   isOpen,
   onClose,
   onSubmit,
+  altBtnText,
+  onAltBtnClick,
 }) {
   return (
     <div className={`modal ${isOpen ? 'modal_opened' : ''}`}>
@@ -21,9 +23,20 @@ function ModalWithForm({
         </button>
         <form onSubmit={onSubmit} className="modal__form">
           {children}
-          <button className="modal__submit" type="submit">
-            {buttonText}
-          </button>
+          <div className="modal__button-group">
+            <button className="modal__submit" type="submit">
+              {buttonText}
+            </button>
+            {altBtnText && onAltBtnClick && (
+              <button
+                className="modal__alt-btn"
+                type="button"
+                onClick={onAltBtnClick}
+              >
+                {altBtnText}
+              </button>
+            )}
+          </div>
         </form>
       </div>
     </div>

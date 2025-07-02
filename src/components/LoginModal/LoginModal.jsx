@@ -2,7 +2,13 @@ import './LoginModal.css';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 import { useEffect, useState } from 'react';
 
-function LogInModal({ onClose, isOpen, onLogInModalSubmit, userError }) {
+function LogInModal({
+  onClose,
+  isOpen,
+  onLogInModalSubmit,
+  userError,
+  handleSignUpClick,
+}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -37,6 +43,8 @@ function LogInModal({ onClose, isOpen, onLogInModalSubmit, userError }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      altBtnText="Sign Up"
+      onAltBtnClick={handleSignUpClick}
     >
       <label htmlFor="email" className="modal__label">
         Email{' '}

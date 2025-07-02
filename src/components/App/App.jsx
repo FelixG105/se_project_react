@@ -89,6 +89,14 @@ function App() {
       });
   };
 
+  const handleSignUpClick = () => {
+    setActiveModal('register');
+  };
+
+  const handleLogInClick = () => {
+    setActiveModal('login');
+  };
+
   const handleLogIn = ({ email, password }) => {
     return signIn({ email, password })
       .then(({ token }) => {
@@ -219,6 +227,7 @@ function App() {
               handleSignOut={handleSignOut}
               handleLogIn={handleLogIn}
               setActiveModal={setActiveModal}
+              handleSignUpClick={handleSignUpClick}
             />
 
             <Routes>
@@ -273,12 +282,14 @@ function App() {
             onClose={closeActiveModal}
             onRegisterModalSubmit={handleRegisterModalSubmit}
             userError={userError}
+            handleLogInClick={handleLogInClick}
           />
           <LogInModal
             isOpen={activeModal === 'login'}
             onClose={closeActiveModal}
             onLogInModalSubmit={handleLogIn}
             userError={userError}
+            handleSignUpClick={handleSignUpClick}
           />
           <EditProfileModal
             isOpen={activeModal === 'edit-profile'}

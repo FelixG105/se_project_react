@@ -2,8 +2,13 @@ import './RegisterModal.css';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 import { useEffect, useState } from 'react';
 
-function RegisterModal({ onClose, isOpen, onRegisterModalSubmit, userError }) {
-  
+function RegisterModal({
+  onClose,
+  isOpen,
+  onRegisterModalSubmit,
+  userError,
+  handleLogInClick,
+}) {
   const [name, setName] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [email, setEmail] = useState('');
@@ -46,6 +51,8 @@ function RegisterModal({ onClose, isOpen, onRegisterModalSubmit, userError }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      altBtnText="Log In"
+      onAltBtnClick={handleLogInClick}
     >
       <label htmlFor="email" className="modal__label">
         Email{' '}

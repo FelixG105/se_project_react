@@ -11,6 +11,7 @@ function Header({
   weatherData,
   handleSignOut,
   setActiveModal,
+  handleSignUpClick,
 }) {
   const currentDate = new Date().toLocaleString('default', {
     month: 'long',
@@ -43,7 +44,7 @@ function Header({
         ) : (
           <Link to="/" className="register__modal">
             <button
-              onClick={() => setActiveModal('register')}
+              onClick={handleSignUpClick}
               type="button"
               className="header__signup"
             >
