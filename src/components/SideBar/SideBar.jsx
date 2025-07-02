@@ -6,6 +6,9 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 function SideBar({ openEditModal, handleSignOut }) {
   const { currentUser } = useContext(CurrentUserContext);
 
+  if (!currentUser || !currentUser.avatar) {
+    return null;
+  }
   return (
     <div className="sidebar">
       <div className="sidebar__user-info">

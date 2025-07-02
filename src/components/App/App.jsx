@@ -39,7 +39,8 @@ function App() {
   const [activeModal, setActiveModal] = useState('');
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTempUnit, setCurrentTempUnit] = useState('F');
-  const [currentUser, setCurrentUser] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [userError, setUserError] = useState('');
   const navigate = useNavigate();
 
@@ -90,14 +91,19 @@ function App() {
 
   const handleLogIn = ({ email, password }) => {
     return signIn({ email, password })
-      .then((user) => {
-        if (user.token) {
-          localStorage.setItem('jwt', user.token);
+      .then(({ token }) => {
+        if (token) {
+          localStorage.setItem('jwt', token);
         }
+        return validateToken(token);
+      })
+      .then((user) => {
+        console.log('Logged in user:', user);
         setCurrentUser(user);
         closeActiveModal();
         navigate('/profile');
       })
+
       .catch(console.error);
   };
 
@@ -120,7 +126,7 @@ function App() {
       .then(() => {
         localStorage.removeItem('jwt');
         navigate('/');
-        setCurrentUser(false);
+        setCurrentUser(null);
       })
       .catch(console.error);
   };
@@ -189,10 +195,14 @@ function App() {
         .catch((err) => {
           console.error(err);
           localStorage.removeItem('jwt');
-          setCurrentUser(false);
+          setCurrentUser(null);
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     } else {
-      setCurrentUser(false);
+      setCurrentUser(null);
+      setIsLoading(false);
     }
   }, []);
 
@@ -226,7 +236,10 @@ function App() {
               <Route
                 path="/profile"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute
+                    currentUser={currentUser}
+                    isLoading={isLoading}
+                  >
                     <Profile
                       onCardClick={handleCardClick}
                       onDelete={handleDeleteCard}
