@@ -1,3 +1,4 @@
+import { handleResponse } from '../utils/api';
 const baseUrl = 'http://localhost:3001';
 
 function checkToken() {
@@ -17,9 +18,7 @@ function signUp({ name, imageUrl, email, password }) {
       email: email,
       password: password,
     }),
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  }).then(handleResponse);
 }
 
 function signIn({ email, password }) {
@@ -29,9 +28,7 @@ function signIn({ email, password }) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }),
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  }).then(handleResponse);
 }
 
 function signOut() {

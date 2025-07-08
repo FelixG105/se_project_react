@@ -11,7 +11,6 @@ import CurrentTempUnitContext from '../../contexts/CurrentTempUnitContext.jsx';
 import CurrentUserContext from '../../contexts/CurrentUserContext.jsx';
 import AddItemModal from '../AddItemModal/AddItemModal.jsx';
 import RegisterModal from '../RegisterModal/RegisterModal.jsx';
-import { defaultClothingItems } from '../../utils/constants.js';
 import Profile from '../Profile/Profile.jsx';
 import { api } from '../../utils/api.js';
 import LogInModal from '../LoginModal/LoginModal.jsx';
@@ -34,7 +33,7 @@ function App() {
     isDay: true,
   });
 
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState([]);
 
   const [activeModal, setActiveModal] = useState('');
   const [selectedCard, setSelectedCard] = useState({});

@@ -1,9 +1,7 @@
 .card {
   position: relative;
   display: flex;
-  justify-content: center;
   flex: 0 0 calc(25% - 16px);
-  flex-basis: calc(33.33% - 13.33px);
   cursor: pointer;
   width: 325px;
   height: 328px;

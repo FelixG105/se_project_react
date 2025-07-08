@@ -1,59 +1,48 @@
 const baseUrl = 'http://localhost:3001';
 
+export function handleResponse(res) {
+  return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+}
+
+function authHeaders(token, contentType = false) {
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  if (contentType) headers['Content-Type'] = 'application/json';
+  return headers;
+}
+
 function getItems() {
-  return fetch(`${baseUrl}/items`).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  return fetch(`${baseUrl}/items`).then(handleResponse);
 }
 
 function postItems({ name, imageUrl, weather, token }) {
   return fetch(`${baseUrl}/items`, {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      name: name,
-      imageUrl: imageUrl,
-      weather: weather,
-    }),
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+    headers: authHeaders(token, true),
+    body: JSON.stringify({ name, imageUrl, weather }),
+  }).then(handleResponse);
 }
 
 function deleteItems({ _id, token }) {
   return fetch(`${baseUrl}/items/${_id}`, {
     method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+    headers: authHeaders(token),
+  }).then(handleResponse);
 }
 
 function addCardLike({ _id, token }) {
   return fetch(`${baseUrl}/items/${_id}/likes`, {
     method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((res) =>
-    res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
-  );
+    headers: authHeaders(token),
+  }).then(handleResponse);
 }
 
 function removeCardLike({ _id, token }) {
   return fetch(`${baseUrl}/items/${_id}/likes`, {
     method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((res) =>
-    res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
-  );
+    headers: authHeaders(token),
+  }).then(handleResponse);
 }
 
 export const api = {
