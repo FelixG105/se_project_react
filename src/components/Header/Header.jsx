@@ -8,7 +8,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 function Header({
   handleAddClick,
   weatherData,
-  handleSignOut,
+  // handleSignOut,
   setActiveModal,
   handleSignUpClick,
 }) {
@@ -73,7 +73,7 @@ function Header({
             </button>
           </div>
         )}
-        <Link to="/" className="header__link">
+        {/* <Link to="/" className="header__link">
           <div className="header__user-container">
             {currentUser ? (
               <button
@@ -85,7 +85,7 @@ function Header({
               </button>
             ) : null}
           </div>
-        </Link>
+        </Link> */}
       </div>
     </header>
   );
