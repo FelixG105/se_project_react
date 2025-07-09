@@ -72,19 +72,42 @@ function App() {
       .catch(console.error);
   };
 
+  // const handleRegisterModalSubmit = ({ name, imageUrl, email, password }) => {
+  //   signUp({ name, imageUrl, email, password })
+  //     .then(() => {
+  //       signIn({ email, password })
+  //         .then((user) => {
+  //           setCurrentUser(user);
+  //           closeActiveModal();
+  //         })
+  //         .catch(console.error);
+  //     })
+  //     .catch((userError) => {
+  //       console.error(userError);
+  //       setUserError(userError.message);
+  //     });
+  // };
+
   const handleRegisterModalSubmit = ({ name, imageUrl, email, password }) => {
     signUp({ name, imageUrl, email, password })
       .then(() => {
-        signIn({ email, password })
-          .then((user) => {
-            setCurrentUser(user);
-            closeActiveModal();
-          })
-          .catch(console.error);
+        return signIn({ email, password }); // get token
       })
-      .catch((userError) => {
-        console.error(userError);
-        setUserError(userError.message);
+      .then(({ token }) => {
+        console.log('🛠 Received token from signIn:', token);
+        if (token) {
+          localStorage.setItem('jwt', token);
+          return validateToken(token); // ✅ get full user info
+        }
+        throw new Error('No token received on sign in');
+      })
+      .then((user) => {
+        setCurrentUser(user); // ✅ full user object with avatar
+        closeActiveModal();
+      })
+      .catch((err) => {
+        console.error(err);
+        setUserError(err.message);
       });
   };
 
@@ -105,7 +128,6 @@ function App() {
         return validateToken(token);
       })
       .then((user) => {
-        console.log('Logged in user:', user);
         setCurrentUser(user);
         closeActiveModal();
         navigate('/profile');

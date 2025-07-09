@@ -37,6 +37,7 @@ function signOut() {
 }
 
 function validateToken(token) {
+  console.log('Validating token:', token);
   return fetch('http://localhost:3001/users/me', {
     method: 'GET',
     headers: {
