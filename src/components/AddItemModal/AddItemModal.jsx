@@ -20,10 +20,15 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItemModalSubmit({ name, imageUrl, weather });
-    setName('');
-    setImageUrl('');
-    setWeather('');
+    onAddItemModalSubmit({ name, imageUrl, weather })
+      .then(() => {
+        setName('');
+        setImageUrl('');
+        setWeather('');
+      })
+      .catch((err) => {
+        console.error('Error submitting form:', err);
+      });
   };
 
   return (

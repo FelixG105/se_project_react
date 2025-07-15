@@ -62,7 +62,7 @@ function App() {
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
     const token = localStorage.getItem('jwt');
-    api
+    return api
       .postItems({ name, imageUrl, weather, token })
       .then((newItem) => {
         // Use the returned item from the server, which includes _id
@@ -91,18 +91,18 @@ function App() {
   const handleRegisterModalSubmit = ({ name, imageUrl, email, password }) => {
     signUp({ name, imageUrl, email, password })
       .then(() => {
-        return signIn({ email, password }); // get token
+        return signIn({ email, password });
       })
       .then(({ token }) => {
         console.log('🛠 Received token from signIn:', token);
         if (token) {
           localStorage.setItem('jwt', token);
-          return validateToken(token); // ✅ get full user info
+          return validateToken(token);
         }
         throw new Error('No token received on sign in');
       })
       .then((user) => {
-        setCurrentUser(user); // ✅ full user object with avatar
+        setCurrentUser(user);
         closeActiveModal();
       })
       .catch((err) => {
