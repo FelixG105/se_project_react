@@ -16,16 +16,29 @@ function ClothesSection({
     <div className="clothes-section">
       <div className="clothes-section__options">
         <p className="clothes-section__title">Your Items</p>
-        {currentUser ? (
-          <button
-            onClick={handleAddClick}
-            type="button"
-            className="clothes-section__add-new"
-          >
-            {' '}
-            + Add New
-          </button>
-        ) : null}
+        {clothingItems
+          .filter((item) => item.owner === currentUser._id)
+          .map((item) => {
+            return (
+              <ItemCard
+                key={item._id}
+                item={item}
+                onCardClick={onCardClick}
+                onDelete={onDelete}
+                onCardLike={onCardLike}
+              />
+            );
+          })}{' '}
+        ? (
+        <button
+          onClick={handleAddClick}
+          type="button"
+          className="clothes-section__add-new"
+        >
+          {' '}
+          + Add New
+        </button>
+        ) : null
       </div>
       {currentUser ? (
         <ul className="clothes-section__items">

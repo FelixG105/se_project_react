@@ -1,5 +1,5 @@
 import { handleResponse } from '../utils/api';
-const baseUrl = 'http://localhost:3001';
+import { baseUrl } from './api';
 
 function checkToken() {
   const token = localStorage.getItem('jwt');
@@ -13,10 +13,10 @@ function signUp({ name, imageUrl, email, password }) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      name: name,
+      name,
       avatar: imageUrl,
-      email: email,
-      password: password,
+      email,
+      password,
     }),
   }).then(handleResponse);
 }
@@ -38,34 +38,24 @@ function signOut() {
 
 function validateToken(token) {
   console.log('Validating token:', token);
-  return fetch('http://localhost:3001/users/me', {
+  return fetch(`${baseUrl}/users/me`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
-  }).then((res) => {
-    if (!res.ok) {
-      throw new Error('Invalid token');
-    }
-    return res.json();
-  });
+  }).then(handleResponse);
 }
 
 function updateUser({ token, name, avatar }) {
-  return fetch('http://localhost:3001/users/me', {
+  return fetch(`${baseUrl}/users/me`, {
     method: 'PATCH',
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ name, avatar }),
-  }).then((res) => {
-    if (!res.ok) {
-      throw new Error('Invalid token');
-    }
-    return res.json();
-  });
+  }).then(handleResponse);
 }
 
 export { signIn, signOut, signUp, checkToken, validateToken, updateUser };

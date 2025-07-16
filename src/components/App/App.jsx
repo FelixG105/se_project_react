@@ -58,6 +58,7 @@ function App() {
 
   const closeActiveModal = () => {
     setActiveModal('');
+    setUserError('');
   };
 
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
@@ -65,36 +66,19 @@ function App() {
     return api
       .postItems({ name, imageUrl, weather, token })
       .then((newItem) => {
-        // Use the returned item from the server, which includes _id
         setClothingItems([newItem.data, ...clothingItems]);
         closeActiveModal();
       })
       .catch(console.error);
   };
 
-  // const handleRegisterModalSubmit = ({ name, imageUrl, email, password }) => {
-  //   signUp({ name, imageUrl, email, password })
-  //     .then(() => {
-  //       signIn({ email, password })
-  //         .then((user) => {
-  //           setCurrentUser(user);
-  //           closeActiveModal();
-  //         })
-  //         .catch(console.error);
-  //     })
-  //     .catch((userError) => {
-  //       console.error(userError);
-  //       setUserError(userError.message);
-  //     });
-  // };
-
   const handleRegisterModalSubmit = ({ name, imageUrl, email, password }) => {
+    setUserError('');
     signUp({ name, imageUrl, email, password })
       .then(() => {
         return signIn({ email, password });
       })
       .then(({ token }) => {
-        console.log('🛠 Received token from signIn:', token);
         if (token) {
           localStorage.setItem('jwt', token);
           return validateToken(token);
@@ -153,7 +137,6 @@ function App() {
   const handleSignOut = () => {
     signOut()
       .then(() => {
-        localStorage.removeItem('jwt');
         navigate('/');
         setCurrentUser(null);
       })

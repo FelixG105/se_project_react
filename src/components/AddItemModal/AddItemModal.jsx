@@ -56,7 +56,7 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit }) {
       <label htmlFor="imageUrl" className="modal__label">
         Image{' '}
         <input
-          type="text"
+          type="url"
           className="modal__input"
           id="imageUrl"
           placeholder="Image URL"
@@ -77,6 +77,7 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit }) {
             value="hot"
             onChange={handleWeatherChange}
             checked={weather === 'hot'}
+            required
           />
           <span>Hot</span>
         </label>
@@ -89,6 +90,7 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit }) {
             value="warm"
             onChange={handleWeatherChange}
             checked={weather === 'warm'}
+            required
           />
           <span>Warm</span>
         </label>
@@ -101,6 +103,7 @@ function AddItemModal({ onClose, isOpen, onAddItemModalSubmit }) {
             value="cold"
             onChange={handleWeatherChange}
             checked={weather === 'cold'}
+            required
           />
           <span>Cold</span>
         </label>
