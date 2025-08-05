@@ -28,7 +28,13 @@ function signIn({ email, password }) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }),
-  }).then(handleResponse);
+  })
+    .then(handleResponse)
+    .then((data) => {
+      console.log('Received token:', data.token); // 👈 Log the token
+      localStorage.setItem('jwt', data.token); // 👈 Store it
+      return data;
+    });
 }
 
 function signOut() {
