@@ -10,7 +10,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./dist/* felix_gonzalez@wtwrfg.twilightparadox.com:/felix_gonzalez/frontend"
+    "deploy": "npm run build && scp -r ./dist/* felix_gonzalez105@wtwrfg.twilightparadox.com:/felix_gonzalez105/frontend"
   },
   "dependencies": {
     "jwt-decode": "^4.0.0",
