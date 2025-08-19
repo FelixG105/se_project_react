@@ -1,5 +1,5 @@
 import { handleResponse } from '../utils/api';
-import { baseUrl } from './api';
+import { baseUrl } from './constants';
 
 function checkToken() {
   const token = localStorage.getItem('jwt');

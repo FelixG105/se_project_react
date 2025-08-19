@@ -75,6 +75,13 @@ export const coordinates = {
   longitude: -73.761119,
 };
 
+
+
 // export const APIkey = import.meta.env.VITE_API_KEY;
 
 export const APIkey = '3654ac2e72a994e84376fb77d933921b';
+
+export const baseUrl =
+  process.env.NODE_ENV === 'production'
+    ? 'https:/api.wtwrfg.twilightparadox.com'
+    : 'http://localhost:3001';
